@@ -3,12 +3,15 @@ import json
 import ctypes
 import os
 
-#request weather data, receive response and parse it
-API_KEY = 'c85d528ba3cdbcb4945277f6fb06f4de'
-f = urllib2.urlopen('http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=c85d528ba3cdbcb4945277f6fb06f4de')
-json_string = f.read()
-parsed_json = json.loads(json_string)
+#request weather data
 
+url = 'http://api.openweathermap.org/data/2.5/weather?zip=%s,us&APPID=%s'
+zip_code= 90024
+API_KEY = 'c85d528ba3cdbcb4945277f6fb06f4de'
+response=urllib2.urlopen(url%(zip_code, API_KEY))
+json_string = response.read()
+parsed_json = json.loads(json_string)
+print(parsed_json.get('weather'))
 #map parsed response to a background image
 
 #So the response you got back is formatted
