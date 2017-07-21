@@ -1,18 +1,34 @@
 import urllib2
 import json
+import re
 import ctypes
 import os
 
 #request weather data
 
 url = 'http://api.openweathermap.org/data/2.5/weather?zip=%s,us&APPID=%s'
-zip_code= 90024
+zip_code= '90024'
 API_KEY = 'c85d528ba3cdbcb4945277f6fb06f4de'
 response=urllib2.urlopen(url%(zip_code, API_KEY))
 json_string = response.read()
+    # if ^ is actually a string, why did I have to turn it into a string in 2 lines?
 parsed_json = json.loads(json_string)
-print(parsed_json.get('weather'))
+array = str(parsed_json.get('weather'))
+print array[15] #this gives you "e" woooo
+
+#how do I access the weather ID and not just the whole weather...
+#weather_ID = re.findall(r'2|3|4|5|6|7|8|9', weather)
+#print weather_ID
+
 #map parsed response to a background image
+
+#if weather_ID == '8':
+    #image_path = "C:\Users\kpet5\src\BackgroundByWeather\BackgroundPictures\MiamiBeach2.jpg"
+    #SPI_SETDESKWALLPAPER = 20 
+    #ctypes.windll.user32.SystemParametersInfoA(SPI_SETDESKWALLPAPER, 0, image_path, 3)
+#else:
+    #print('darn')
+
 
 #So the response you got back is formatted
 #as "json" which stands for JavaScript object
@@ -42,9 +58,8 @@ print(parsed_json.get('weather'))
     #folder = "Saved Pictures"
     #image = "Colosseum.jpg"
     #image_path = os.path.join(drive, folder, image)
-image_path = "C:\Users\kpet5\Pictures\Saved Pictures\Crepes.jpg"
-SPI_SETDESKWALLPAPER = 20 
-ctypes.windll.user32.SystemParametersInfoA(SPI_SETDESKWALLPAPER, 0, image_path, 3) 
+#for id=8XX
+
 
 
 #use startup to make it run in the background
